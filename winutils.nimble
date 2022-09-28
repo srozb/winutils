@@ -5,9 +5,9 @@ author        = "srozb"
 description   = "Windows offensive utils"
 license       = "MIT"
 srcDir        = "src"
-bin           = @["hs", "np_servefile", "pebtamper"]
+bin           = @["hs", "np_servefile", "pebtamper", "progidlist"]
 
 
 # Dependencies
 
-requires "nim >= 1.6.6, winim >= 3.9.0, cligen >= 1.5.28"
+requires "nim >= 1.6.6, winim >= 3.9.0, cligen >= 1.5.28, winregistry >= 1.0.0"
