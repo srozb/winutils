@@ -5,8 +5,6 @@ const
   PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALLOW_STORE = 0x00000003 shl 44
   PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON = 0x00000001 shl 36
 
-
-
 proc createStartupInfoEx(): STARTUPINFOEX =
   var lpSize: SIZE_T
 
@@ -27,14 +25,13 @@ proc updateThreadAttr[T](si: var STARTUPINFOEX, tAttr: int, tVal: var T) =
     NULL
   )
   
-  if res == 0:
-    echo "Unable to adjust process attributes."  
+  if res == 0: echo "Unable to adjust process attributes."  
 
-proc spawnProc*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspended = false, targetExec: string, impersonatePid = 0): bool =
+proc spawnProc*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspended = false, impersonatePid = 0, targetExec: string): bool =
   var 
     si = createStartupInfoEx()
-    ps: LPSECURITY_ATTRIBUTES
-    ts: LPSECURITY_ATTRIBUTES
+    ps: SECURITY_ATTRIBUTES
+    ts: SECURITY_ATTRIBUTES
     pi: PROCESS_INFORMATION
     dwCreationFlags: DWORD
     policy: DWORD64
@@ -94,8 +91,8 @@ proc spawnProc*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspe
     handleRes CreateProcess(
       NULL,
       newWideCString(targetExec),
-      ps,
-      ts,
+      addr ps,
+      addr ts,
       FALSE,
       dwCreationFlags,
       NULL,
@@ -106,13 +103,18 @@ proc spawnProc*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspe
 
   result = res.bool
 
+proc main*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspended = false, impersonatePid = 0, targets: seq[string]): bool =
+  ## Spawn processes according to parameters. 
+  for t in targets:
+    echo "Spawning " & t & "..."
+    discard spawnProc(blockDlls, prohibitDynamic, parentPid, suspended, impersonatePid, t)
+
 when isMainModule:
   import cligen
-  dispatch(spawnProc, short={
+  dispatch(main, short={
     "blockDlls": 'b',
     "parentPid": 'p',
     "prohibitDynamic": 'd',
     "suspended": 's',
-    "targetExec": 'e',
     "impersonatePid": 'i'
     })

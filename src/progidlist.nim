@@ -7,7 +7,7 @@ proc getRegVal(keyPath: string): string =
     sbKey = open(keyPath, samRead)
     result = sbKey.readString("")
   except OSError:
-    discard "means no value defined, that's fine."
+    discard  # means no value defined, that's fine.
   finally:
     sbKey.close    
 
