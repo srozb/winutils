@@ -5,7 +5,7 @@ author        = "srozb"
 description   = "Windows offensive utils"
 license       = "MIT"
 srcDir        = "src"
-bin           = @["hs", "np_servefile", "pebtamper", "progidlist"]
+bin           = @["hs", "np_servefile", "pebtamper", "progidlist", "privs"]
 
 
 # Dependencies
