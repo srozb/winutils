@@ -5,7 +5,11 @@ on:
 
 jobs:
   default:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
     steps:
       - uses: actions/checkout@v3
       - uses: jiro4989/setup-nim-action@v1

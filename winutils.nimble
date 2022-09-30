@@ -1,11 +1,12 @@
 # Package
 
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "srozb"
 description   = "Windows offensive utils"
 license       = "MIT"
 srcDir        = "src"
-bin           = @["hs", "np_servefile", "pebtamper", "progidlist", "privs"]
+binDir        = "release/"
+bin           = @["hs", "np_servefile", "pebtamper", "progidlist", "privs", "dumper", "injector"]
 
 
 # Dependencies
