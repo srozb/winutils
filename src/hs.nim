@@ -104,7 +104,9 @@ proc spawnProc*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspe
   result = res.bool
 
 proc main*(blockDlls = false, prohibitDynamic = false, parentPid = 0, suspended = false, impersonatePid = 0, targets: seq[string]): bool =
-  ## Spawn processes according to parameters. 
+  ## Spawn processes according to parameters.
+  if targets.len == 0:
+    echo "Provide at least one filename/path to run. type `--help` for usage."
   for t in targets:
     echo "Spawning " & t & "..."
     discard spawnProc(blockDlls, prohibitDynamic, parentPid, suspended, impersonatePid, t)
