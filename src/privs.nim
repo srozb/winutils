@@ -25,7 +25,7 @@ proc setPrivilege(hToken: HANDLE, privilege: string, bEnablePrivilege = true): b
   if (AdjustTokenPrivileges(hToken, FALSE, addr tp, (sizeof(TOKEN_PRIVILEGES)).DWORD, cast[PTOKEN_PRIVILEGES](NULL), cast[PDWORD](NULL)) < 0):
     raiseException("Adjusting token failed.")
 
-  if (GetLastError() == ERROR_NOT_ALL_ASSIGNED):
+  if GetLastError() == ERROR_NOT_ALL_ASSIGNED:
     raiseException("Privilege not held by the process. Not elevated?")
 
   return true
@@ -46,9 +46,9 @@ proc getParentPID(): int =
     h = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
     
   pe.dwSize = (sizeof pe).DWORD
-  if (Process32First(h, addr pe) >= 0):
-    while (Process32Next(h, addr pe) >= 0):
-      if (pe.th32ProcessID == pid):
+  if Process32First(h, addr pe) >= 0:
+    while Process32Next(h, addr pe) >= 0:
+      if pe.th32ProcessID == pid:
         result = pe.th32ParentProcessID
         break
   CloseHandle(h)
