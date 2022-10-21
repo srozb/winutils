@@ -15,7 +15,7 @@ proc resolveErrMsg*(errCode: DWORD): string =
   )
   result = $msg
 
-proc printError(callee: string) =
+proc printError*(callee: string) =
   echo `callee` & " failed with code: " & $GetLastError()
   echo "Description: " & resolveErrMsg(GetLastError())
 
