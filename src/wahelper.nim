@@ -51,3 +51,38 @@ macro handleResZ*(res: typed): untyped =
 #         )
 #         echo name & " failed with: " & $GetLastError() & " - " & $msg
 #         return
+
+proc hexPrint*(p: ptr uint8, len: int, startAddress = 0): string =
+  ## Helper function to dump hexadecimal representation of bytes.
+  ## Code by treeform (https://github.com/treeform/flatty). Thanks
+  var i = 0
+  while i < len:
+    result.add(toHex(i + startAddress, 16))
+    result.add(": ")
+
+    for j in 0 ..< 16:
+      if i + j < len:
+        let b = cast[ptr uint8](cast[int](p) + i + j)[]
+        result.add(toHex(b.int, 2))
+      else:
+        result.add("..")
+      if j == 7:
+        result.add("-")
+      else:
+        result.add(" ")
+
+    for j in 0 ..< 16:
+      if i + j < len:
+        let b = cast[ptr uint8](cast[int](p) + i + j)[]
+        if ord(b) >= 32 and ord(b) <= 126:
+          result.add(b.char)
+        else:
+          result.add('.')
+      else:
+        result.add(' ')
+
+    i += 16
+    result.add("\n")
+
+proc hexPrint*(buf: string, startAddress = 0): string =
+  hexPrint(cast[ptr uint8](buf[0].unsafeAddr), buf.len, startAddress)

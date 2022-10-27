@@ -1,19 +1,20 @@
 # Package
 
-version       = "0.1.3"
+version       = "0.1.4"
 author        = "srozb"
 description   = "Windows offensive utils"
 license       = "MIT"
 srcDir        = "src"
 binDir        = "release/"
 bin           = @[
-  "hs", 
-  "np_servefile", 
-  "pebtamper", 
-  "progidlist", 
-  "privs", 
   "dumper", 
+  "hs",
   "injector",
+  "np_servefile",
+  "pebtamper", 
+  "privs",
+  "progidlist",
+  "sections",
   "wevent"
 ]
 

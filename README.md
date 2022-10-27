@@ -24,6 +24,7 @@ Ensure Nim installed on your system.
 | pebtamper.nim    | Run process with spoofed cmdline |
 | privs.nim        | Manipulate Windows Privileges |
 | progidlist.nim   | Show registry shell open for extensions |
+| sections.nim     | Show or dump Named Section Object |
 | wevent.nim       | Trigger Windows `SetEvent()` |
 | wahelper.nim     | Some common helper procs to be imported by above |
 
