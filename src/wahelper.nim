@@ -54,7 +54,8 @@ macro handleResZ*(res: typed): untyped =
 
 proc hexPrint*(p: ptr uint8, len: int, startAddress = 0): string =
   ## Helper function to dump hexadecimal representation of bytes.
-  ## Code by treeform (https://github.com/treeform/flatty). Thanks
+  ## Code by treeform: https://github.com/treeform/flatty/blob/master/LICENSE
+  ## Thanks
   var i = 0
   while i < len:
     result.add(toHex(i + startAddress, 16))

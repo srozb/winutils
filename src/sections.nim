@@ -1,4 +1,4 @@
-import winim/lean
+import winim
 import streams
 import strformat
 
@@ -49,9 +49,14 @@ proc dumpSection(sections: seq[string]) =
 #   ## Map section and overwrite it's contents.
 #   discard
 
+# proc listSections(processName=""):
+#   var pGlobal_SystemProcessInfo = GetSystemInformationBlock(SystemProcessInformation)
+#   discard
+
 when isMainModule:
   import cligen
   dispatchMulti(
     [showSection], 
     [dumpSection],
+    # [listSections],
   )

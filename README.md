@@ -17,6 +17,7 @@ Ensure Nim installed on your system.
 
 | Filename         | Description   |
 | ---------------- | ------------- |
+| driversCheck.nim | Enumerate loaded device drivers and compare against loldrivers.io |
 | dumper.nim       | Call MiniDumpWriteDump to dump process mem to file |
 | hs.nim           | HackerSpawner - run another process with some neat features |
 | injector.nim     | Simple classic dll injector |
