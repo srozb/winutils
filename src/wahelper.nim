@@ -16,8 +16,12 @@ proc resolveErrMsg*(errCode: DWORD): string =
   result = $msg
 
 proc printError*(callee: string) =
-  echo `callee` & " failed with code: " & $GetLastError()
+  echo "Call to " & `callee` & " failed with code: " & $GetLastError()
   echo "Description: " & resolveErrMsg(GetLastError())
+
+proc exitError*(callee: string) =
+  printError(callee)
+  quit(GetLastError())
 
 macro handleRes*(res: DWORD): untyped =
   ## Callee returns zero on failure
